@@ -16,6 +16,9 @@ storage/*.key
 .env
 Homestead.yaml
 Homestead.json
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/

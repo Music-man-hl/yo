@@ -9,11 +9,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Library\QiniuManager;
 use App\Picture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use qcloudcos\Cosapi;
 
 class PictureController extends Controller
 {
@@ -28,20 +26,18 @@ class PictureController extends Controller
     {
         $type = Input::get('type','Action');
         $pics = Picture::where('type',$type)->orderBy('id')->get();
-        return view('pictures')->with('pics',$pics)->with('type',$type);
+        return view('pictures', compact('pics','type'))->with('domain',config('filesystems.disks.qiniu.domains.default'));
     }
 
-    public function upload(Request $request){
-//dd($request->file('picture')->getClientOriginalName());
-        $filePath = $request->file('picture')->getClientOriginalName();
-        $content = $request->file('picture');
+    public function store(Request $request){
 
         try {
-            $result = QiniuManager::putFile($filePath, $content);
+            $result = $file = $request->file('picture')->store('/');
+
             if (!$result) return back()->withErrors('失败');
 
             $data['uid'] = $request->user()->id;
-            $data['source_url'] = $result['key'];
+            $data['source_url'] = $result;
             $data['type'] = $request->get('type');
             Picture::create($data);
         }catch (\Exception $e){
@@ -51,16 +47,16 @@ class PictureController extends Controller
 
     }
 
-    public function delete()
+    public function destroy ($src)
     {
-        $re_path = Input::get('path');
-        $path = preg_replace('/\/1253447974\/yoyoo/','',$re_path);
-        $result = Cosapi::delFile($this->bucketName, $path);
-        if ($result['code']==0)
+        $result = \Storage::delete($src);
+        if ($result)
         {
-            Picture::where('resource_path',$re_path)->delete();
+            Picture::where('source_url',$src)->delete();
+            return 1;
+        }else{
+            return 0;
         }
-        return 1;
     }
 
 }

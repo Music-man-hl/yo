@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="btn-group pull-right">
-                            <form id="picture1" action="uploadpictures" enctype="multipart/form-data" method="post"
+                            <form id="picture1" action="/pictures" enctype="multipart/form-data" method="post"
                                   onsubmit="return upload(this)">
                                 {{ csrf_field() }}
                                 <input type="file" name="picture" style="display: none;">
@@ -75,12 +75,12 @@
                                                 class="fa fa-minus"></i>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-box-tool remove" data-widget="remove"
-                                            data="{{$pic->source_url}}"><i class="fa fa-times"></i></button>
+                                            datasrc="{{ $pic->source_url }}"><i class="fa fa-times"></i></button>
                                 </div>
                             </div>
                             <div class="box-body no-padding">
-                                <a rel="gallery-1" href="{{$pic->source_url}}" class="swipebox" title="">
-                                    <img class="img-responsive" src="{{$pic->source_url}}" alt="Photo">
+                                <a rel="gallery-1" href="{{ $domain.$pic->source_url }}" class="swipebox" title="">
+                                    <img class="img-responsive" src="{{ $domain.$pic->source_url }}" alt="Photo">
                                 </a>
                             </div>
                         </div>
@@ -126,8 +126,12 @@
             });
             return false
         };
-    </script>
-    <script type="text/javascript">
+
+        $('.remove').click(function () {
+            var _this = $(this)
+            $.post('/pictures/'+_this.attr('datasrc'),{_method:'delete'})
+        });
+
         (function ($) {
 
             var $container = $('#masonry');
@@ -135,14 +139,10 @@
                 $container.masonry({
                     itemSelector: '.box',
                     gutter: 10,
-                    isAnimated: true,
+                    isAnimated: true
                 });
             });
 
-            $('.remove').click(function () {
-                var _this = $(this)
-                $.get('delpicture?path=' + _this.attr('data'))
-            });
 
 //            $("#picture").fileinput({
 //                initialPreview: [],
