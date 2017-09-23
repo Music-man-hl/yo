@@ -30,12 +30,12 @@ class QiniuManager
         return static::$token;
     }
 
-    public static function putFile($filePath,$content)
+    public static function putFile($key,$filePath)
     {
         $token = self::getToken();
         $uploadManager = new UploadManager();
 
-        list($ret,$err) = $result = $uploadManager->putFile($token,$filePath,$content);
+        list($ret,$err) = $result = $uploadManager->putFile($token,$key,$filePath);
         if (! is_null($ret))
         {
             $ret['key'] = config('filesystems.disks.qiniu.domains.default').$ret['key'];

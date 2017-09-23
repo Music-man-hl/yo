@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 'qiniu',
 
     /*
     |--------------------------------------------------------------------------
@@ -74,6 +74,7 @@ return [
             'secret_key'=>  '4fwcVzyepqpJZWUdm5ACI70Pv4ivWezdbH6GxAdz',
             'bucket'    =>  'yoyoo',
             'notify_url'=> '',  //持久化处理回调地址
+            'access'    => 'public'  //空间访问控制 public 或 private
         ],
 
     ],

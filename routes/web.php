@@ -19,11 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/pictures', 'pictureController@index');
-
-Route::any('/uploadpictures', 'pictureController@upload');
-
-Route::any('/delpicture', 'pictureController@delete');
+Route::resource('pictures', 'PictureController', ['except' => ['create', 'edit', 'update']]);
 
 Route::get('/session', 'HomeController@getSession');
 
