@@ -22,3 +22,5 @@ _ide_helper_models.php
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+laravel/
+storage/debugbar/

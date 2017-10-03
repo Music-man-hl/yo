@@ -43,7 +43,7 @@ class PictureController extends Controller
             ];
             Picture::create($data);
         }catch (\Exception $e){
-            return back()->withErrors('错误');
+            return back()->withErrors($e);
         }
         return back();
 

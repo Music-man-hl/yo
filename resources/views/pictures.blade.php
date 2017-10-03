@@ -37,6 +37,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="btn-group">
                             <button type="button" class="btn btn-info">{{ $type }}</button>
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -128,7 +137,7 @@
         };
 
         $('.remove').click(function () {
-            var _this = $(this)
+            var _this = $(this);
             $.post('/pictures/'+_this.attr('datasrc'),{_method:'delete'})
         });
 

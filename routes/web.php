@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('pictures', 'PictureController', ['except' => ['create', 'edit', 'update']]);
+Route::resource('pictures', 'PictureController', ['except' => ['create', 'edit', 'update']])->middleware('auth');
 
 Route::get('/session', 'HomeController@getSession');
 
