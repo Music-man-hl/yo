@@ -5,7 +5,7 @@
               <!-- DIRECT CHAT -->
               <div id="session-list" class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Direct Chat</h3>
+                  <h3 class="box-title">聊天室</h3>
 
                   <div class="box-tools pull-right">
                     <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
@@ -27,9 +27,7 @@
                          v-bind:name="username"
                          v-bind:time="item.time"
                          v-bind:message="item.msg"
-                    >
-
-                    </div>
+                    ></div>
                     <!-- /.direct-chat-msg -->
 
                     <!-- Message to the right -->
@@ -75,11 +73,11 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="input-group">
-                      <input id="message" type="text" name="message" placeholder="Type Message ..." class="form-control"
+                        <input id="message" name="message" placeholder="输入信息。。。" class="form-control" onkeydown="sendMessageOnKeydown(event)"
                             v-model="newMessage">
                       <span class="input-group-btn">
                             <button id="send" type="button" class="btn btn-warning btn-flat"
-                                    v-on:click="sendMessage">Send</button>
+                                    v-on:click="sendMessage">发送</button>
                           </span>
                     </div>
                 </div>
@@ -92,7 +90,15 @@
 @section('js')
   <script src="{{ asset('js/session.js') }}"></script>
   <script>
+      function sendMessageOnKeydown (event) {
+          var e = event || window.event || arguments.callee.caller.arguments[0];
+          if(e && e.keyCode===27){ // 按 Esc
 
+          }
+          if(e && e.keyCode===13){ // enter 键
+              session.sendMessage()
+          }
+      }
   </script>
 
 @endsection

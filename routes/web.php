@@ -21,11 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('pictures', 'PictureController', ['except' => ['create', 'edit', 'update']])->middleware('auth');
 
-Route::get('/session', 'HomeController@getSession');
-
-Route::any('/sessionStart', 'HomeController@sessionStart');
-
-Route::post('/session', 'HomeController@postSession');
+Route::resource('session', 'SessionController');
 
 Route::get('/calendar', 'CalendarController@index');
 
