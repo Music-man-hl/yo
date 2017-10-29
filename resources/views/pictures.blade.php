@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('css')
-    <!-- Pace style -->
-    <link rel="stylesheet" href="/adminlte/plugins/pace/pace.min.css">
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/plugins/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
-
     <style>
         .backgroundimg {
             width: 100%;
@@ -100,18 +94,9 @@
         </section>
 
     </div>
-    {{--<input id="picture" name="picture[]" type="file" multiple class="file">--}}
 @endsection
 
 @section('js')
-    <script src="/adminlte/plugins/pace/pace.min.js"></script>
-    <script src="/js/masonry-docs.min.js"></script>
-
-    <!-- the main fileinput plugin file -->
-    <script src="/plugins/fileinput/js/fileinput.min.js"></script>
-    <!-- optionally if you need translation for your language then include
-        locale file as mentioned below -->
-    <script src="/plugins/fileinput/js/locales/zh.js"></script>
 
     <script>
         var upload = function (_form) {
@@ -141,36 +126,6 @@
             $.post('/pictures/'+_this.attr('datasrc'),{_method:'delete'})
         });
 
-        (function ($) {
-
-            var $container = $('#masonry');
-            $container.imagesLoaded(function () {
-                $container.masonry({
-                    itemSelector: '.box',
-                    gutter: 10,
-                    isAnimated: true
-                });
-            });
-
-
-//            $("#picture").fileinput({
-//                initialPreview: [],
-//                initialPreviewAsData: true,
-//                initialPreviewConfig: [
-//                    {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
-//                    {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
-//                ],
-//                deleteUrl: "",
-//                overwriteInitial: false,
-//                uploadUrl: " ",
-//                uploadAsync: true,
-//                maxFileCount: 5,
-//                showBrowse: false,
-//                browseOnZoneClick: true,
-//                theme: "gly"
-//            });
-
-        })(jQuery);
     </script>
 
 @endsection
